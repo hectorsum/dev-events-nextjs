@@ -20,6 +20,9 @@ export interface IEvent extends Document {
   updatedAt: Date;
 }
 
+// Plain type for lean queries (without Document methods)
+export type IEventPlain = Omit<IEvent, keyof Document>;
+
 const EventSchema = new Schema<IEvent>(
   {
     title: {
@@ -179,7 +182,7 @@ function normalizeTime(timeString: string): string {
 }
 
 // Create unique index on slug for better performance
-EventSchema.index({ slug: 1 }, { unique: true });
+// EventSchema.index({ slug: 1 }, { unique: true });
 
 // Create compound index for common queries
 EventSchema.index({ date: 1, mode: 1 });
